@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Allocation</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/citlogo2.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', Arial, Helvetica, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        h1 {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-align: center;
+            border-bottom: 2px solid black;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .staff-list {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        .staff-list-item {
+            margin: 5px 0;
+            font-size: 16px;
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #008CBA;
+            color: #fff;
+            border-radius: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .staff-list-item.selected {
+            background-color: #2a9d8f;
+        }
+
+        .next {
+            display: block;
+            margin-top: 20px;
+            background-color: #2a9d8f;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .next:hover {
+            background-color: #1d7a6a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Selected Staffs</h1>
+    <span id="selected-staff-count"></span> staff selected
+    <div class="box1">
+        <ul class="staff-list">
+            {% for i in mstaff %}
+                <li class="staff-list-item">{{ i }}</li>
+            {% endfor %}
+            {% for i in fstaff %}
+                <li class="staff-list-item">{{ i }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <a href='endsems' class="next">Next</a>
+    <a href='edit/' class="next">Edit</a>
+
+    <script>
+        // Get references to your staff list items and the count span
+        var staffListItems = document.querySelectorAll('.staff-list-item');
+        var selectedStaffCount = document.getElementById('selected-staff-count');
+
+        // Function to update the count
+        function updateStaffCount() {
+            var selectedCount = 0;
+            for (var i = 0; i < staffListItems.length; i++) {
+                if (staffListItems[i].classList.contains('selected')) {
+                    selectedCount++;
+                }
+            }
+            selectedStaffCount.textContent = selectedCount;
+        }
+
+        // Add an event listener to each staff list item to toggle the 'selected' class
+        for (var i = 0; i < staffListItems.length; i++) {
+            staffListItems[i].addEventListener('click', function () {
+                this.classList.toggle('selected');
+                updateStaffCount();
+            });
+        }
+    </script>
+</body>
+</html>
